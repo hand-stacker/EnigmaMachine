@@ -49,6 +49,15 @@ public class PermutationTest {
     public void checkIdTransform() {
         perm = new Permutation("", UPPER);
         checkPerm("identity", UPPER_STRING, UPPER_STRING);
+        assertFalse((msg("identity", "wrong derangement")), perm.derangement());
+
+        perm = new Permutation(NAVALA.get("I"), new Alphabet(NAVALA_MAP.get("I")));
+        checkPerm("I rotor", UPPER_STRING, NAVALA_MAP.get("I"));
+        assertFalse((msg("I rotot", "wrong derangement")), perm.derangement());
+
+        perm = new Permutation(NAVALA.get("IV"), new Alphabet(NAVALA_MAP.get("IV")));
+        checkPerm("IV rotor", UPPER_STRING, NAVALA_MAP.get("IV"));
+        assertTrue((msg("IV rotot", "wrong derangement")), perm.derangement());
     }
 
 }

@@ -1,6 +1,7 @@
 package enigma;
 
 import java.util.*;
+import static enigma.EnigmaException.*;
 
 /** An alphabet of encodable characters.  Provides a mapping from characters
  *  to and from indices into the alphabet.
@@ -12,6 +13,8 @@ class Alphabet {
      *  K (numbering from 0). No character may be duplicated. */
     Alphabet(String chars) {
         for (int i= 0; i < chars.length(); i++){
+            if (_chars.containsValue(chars.charAt(i))) {throw error("Error when" +
+                    " making alphabet, two identical characters were passed in constructor");}
             _chars.put(i, chars.charAt(i));
         }
     }
