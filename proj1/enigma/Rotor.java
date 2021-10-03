@@ -11,6 +11,7 @@ class Rotor {
     Rotor(String name, Permutation perm) {
         _name = name;
         _permutation = perm;
+        _setting = 0;
         // FIXME
     }
 
@@ -46,16 +47,21 @@ class Rotor {
 
     /** Return my current setting. */
     int setting() {
-        return 0; // FIXME
+        return _setting; // FIXME
     }
 
     /** Set setting() to POSN.  */
     void set(int posn) {
+        String cycles = _permutation._cycles;
+        /** update cycles to shift by posn */
+        _permutation.updateCycles(cycles);
         // FIXME
     }
 
     /** Set setting() to character CPOSN. */
     void set(char cposn) {
+        int posn = _permutation.alphabet().toInt(cposn);
+        set(posn);
         // FIXME
     }
 
@@ -92,6 +98,8 @@ class Rotor {
     /** The permutation implemented by this rotor in its 0 position. */
     private Permutation _permutation;
 
+    /** current setting */
+    private int _setting;
     // FIXME: ADDITIONAL FIELDS HERE, AS NEEDED
 
 }

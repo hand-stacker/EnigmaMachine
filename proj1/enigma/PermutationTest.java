@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import static enigma.TestUtils.*;
 
 /** The suite of all JUnit tests for the Permutation class.
- *  @author
+ *  @author Jeremy Lazo
  */
 public class PermutationTest {
 
@@ -58,6 +58,11 @@ public class PermutationTest {
         perm = new Permutation(NAVALA.get("IV"), new Alphabet(NAVALA_MAP.get("IV")));
         checkPerm("IV rotor", UPPER_STRING, NAVALA_MAP.get("IV"));
         assertTrue((msg("IV rotot", "wrong derangement")), perm.derangement());
+
+        perm = new Permutation("(AGB) (FH) (S)", UPPER);
+        checkPerm("duplicate cycles", UPPER_STRING, "GACDEHBFIJKLMNOPQRSTUVWXYZ");
+        assertFalse((msg("duplicate cycles", "wrong derangement")), perm.derangement());
+
     }
 
 }

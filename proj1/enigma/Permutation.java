@@ -12,7 +12,7 @@ import static enigma.TestUtils.msg;
 
 /** Represents a permutation of a range of integers starting at 0 corresponding
  *  to the characters of an alphabet.
- *  @author
+ *  @author Jeremy Lazo
  */
 class Permutation {
 
@@ -22,26 +22,20 @@ class Permutation {
      *  alphabet that are not included in any cycle map to themselves.
      *  Whitespace is ignored. */
     Permutation(String cycles, Alphabet alphabet) {
+        _cycles = cycles;
         _alphabet = alphabet;
-        if (!cycles.equals("")){
-            String[] _s = cycles.split(" ");
-            for (String str : _s) { /* adds all switches in cycles */
-                str = str.substring(1,str.length()-1);
-                addCycle(str);
-            }
-        }
+        updateCycles(cycles);
 
-        for (char c : _alphabet._chars.values()) { /* adds all chars not in cycle but in alphabet */
-            if (!_charMap.containsValue(c)) {
-                _charMap.put(c,c);
-                _invMap.put(c,c);
-            }
-        }
     }
 
     /** Add the cycle c0->c1->...->cm->c0 to the permutation, where CYCLE is
      *  c0c1...cm. */
     private void addCycle(String cycle) {
+        for (char a: cycle.toCharArray()) {
+            if (_charMap.containsKey(a)) {throw error(msg("addCycles",
+                    "character %c already in a cycle", cycle.charAt(0)));}
+
+        }
         if (!_alphabet.contains(cycle.charAt(0))) {throw error(msg("addCycles",
                 "character %c not found in alphabet", cycle.charAt(0)));}
 
@@ -55,6 +49,29 @@ class Permutation {
         }
         _charMap.put(cycle.charAt(cycle.length()-1), cycle.charAt(0));
         _invMap.put(cycle.charAt(0), cycle.charAt(cycle.length()-1));
+    }
+    /** Updates HashMaps of Permutation with cycles "(ABC) (DEF)"*/
+    protected void updateCycles(String cycles){
+        _charMap = new HashMap<>();
+        _invMap = new HashMap<>();
+
+        if (!cycles.equals("")){
+            String[] _s = cycles.split(" ");
+            for (String str : _s) { /* adds all switches in cycles */
+                if (!str.substring(0,1).equals("(") | !str.substring(str.length()-1,str.length()).equals(")") ) {throw error(msg("addCycles",
+                        "cycles not in correct format (ABC)"));}
+                str = str.substring(1,str.length()-1);
+                addCycle(str);
+            }
+        }
+
+        for (char c : _alphabet._chars.values()) { /* adds all chars not in cycle but in alphabet */
+            if (!_charMap.containsValue(c)) {
+                _charMap.put(c,c);
+                _invMap.put(c,c);
+            }
+        }
+
     }
 
     /** Return the value of P modulo the size of this permutation. */
@@ -117,6 +134,10 @@ class Permutation {
     /** Alphabet of this permutation. */
     private Alphabet _alphabet;
 
+    /** Initializes a copy of original cycle*/
+    final String _cycles;
+
+    /** HashMaps that translate chars*/
     private HashMap<Character, Character> _charMap = new HashMap<>();
     private HashMap<Character, Character> _invMap = new HashMap<>();
 }
