@@ -54,10 +54,11 @@ class Rotor {
 
     /** Set setting() to POSN.  */
     void set(int posn) {
+
         String cycles = _permutation._cycles;
         /** update cycles to shift by posn */
         Alphabet newAlph = new Alphabet(alphabet().str + "()");
-        Permutation newPerm = new Permutation(cycles , newAlph);
+        Permutation newPerm = new Permutation("" , newAlph);
         char[] charArr = cycles.toCharArray();
         for (char c: charArr) {
             int index = Arrays.binarySearch(charArr, c);

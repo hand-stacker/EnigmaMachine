@@ -58,6 +58,13 @@ public class MovingRotorTest {
     }
 
     @Test
+    public void checkrotoratA_2() {
+        setRotor("I", NAVALA, "");
+        rotor.set(1);
+        checkRotor("Rotor I advanced", UPPER_STRING, NAVALB_MAP.get("I"));
+
+    }
+    @Test
     public void checkRotorAdvance() {
         setRotor("I", NAVALA, "");
         rotor.advance();
