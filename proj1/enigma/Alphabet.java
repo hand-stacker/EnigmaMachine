@@ -12,6 +12,7 @@ class Alphabet {
     /** A new alphabet containing CHARS. The K-th character has index
      *  K (numbering from 0). No character may be duplicated. */
     Alphabet(String chars) {
+        str = chars;
         for (int i= 0; i < chars.length(); i++){
             if (_chars.containsValue(chars.charAt(i))) {throw error("Error when" +
                     " making alphabet, two identical characters were passed in constructor");}
@@ -50,6 +51,6 @@ class Alphabet {
         }
         return null;
     }
-
+    protected final String str;
     HashMap<Integer, Character> _chars = new HashMap<Integer, Character>();
 }

@@ -1,5 +1,7 @@
 package enigma;
 
+import java.util.Arrays;
+
 import static enigma.EnigmaException.*;
 
 /** Superclass that represents a rotor in the enigma machine.
@@ -54,7 +56,19 @@ class Rotor {
     void set(int posn) {
         String cycles = _permutation._cycles;
         /** update cycles to shift by posn */
-        _permutation.updateCycles(cycles);
+        Alphabet newAlph = new Alphabet(alphabet().str + "()");
+        Permutation newPerm = new Permutation(cycles , newAlph);
+        char[] charArr = cycles.toCharArray();
+        for (char c: charArr) {
+            int index = Arrays.binarySearch(charArr, c);
+            for (int i = 0; i < posn; i++){
+                c = newPerm.permute(c);
+            }
+            charArr[index] = c;
+
+        }
+        String newcycles = String.valueOf(charArr);
+        _permutation.updateCycles(newcycles);
         // FIXME
     }
 
@@ -68,13 +82,15 @@ class Rotor {
     /** Return the conversion of P (an integer in the range 0..size()-1)
      *  according to my permutation. */
     int convertForward(int p) {
-        return 0;  // FIXME
+        return _permutation.permute(p);
+        // FIXME
     }
 
     /** Return the conversion of E (an integer in the range 0..size()-1)
      *  according to the inverse of my permutation. */
     int convertBackward(int e) {
-        return 0;  // FIXME
+        return _permutation.invert(e);
+        // FIXME
     }
 
     /** Returns true iff I am positioned to allow the rotor to my left
