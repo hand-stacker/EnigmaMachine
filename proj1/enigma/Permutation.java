@@ -54,6 +54,7 @@ class Permutation {
     protected void updateCycles(String cycles){
         _charMap = new HashMap<>();
         _invMap = new HashMap<>();
+        _cycles = cycles;
 
         if (!cycles.equals("")){
             String[] _s = cycles.split(" ");
@@ -135,7 +136,7 @@ class Permutation {
     private Alphabet _alphabet;
 
     /** Initializes a copy of original cycle*/
-    final String _cycles;
+    public String _cycles;
 
     /** HashMaps that translate chars*/
     private HashMap<Character, Character> _charMap = new HashMap<>();

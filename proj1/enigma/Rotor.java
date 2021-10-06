@@ -57,19 +57,10 @@ class Rotor {
 
         String cycles = _permutation._cycles;
         /** update cycles to shift by posn */
-        Alphabet newAlph = new Alphabet(alphabet().str + "()");
-        Permutation newPerm = new Permutation("" , newAlph);
+        Permutation newPerm = new Permutation("("+ alphabet().str + ")", alphabet());
         char[] charArr = cycles.toCharArray();
-        for (char c: charArr) {
-            int index = Arrays.binarySearch(charArr, c);
-            for (int i = 0; i < posn; i++){
-                c = newPerm.permute(c);
-            }
-            charArr[index] = c;
-
-        }
-        String newcycles = String.valueOf(charArr);
-        _permutation.updateCycles(newcycles);
+        char[] newcycles = setCycles(newPerm, charArr, posn);
+        _permutation.updateCycles(String.valueOf(newcycles));
         // FIXME
     }
 
@@ -78,6 +69,25 @@ class Rotor {
         int posn = _permutation.alphabet().toInt(cposn);
         set(posn);
         // FIXME
+    }
+
+    private char[] setCycles(Permutation perm, char[] chars, int posn) {
+        Character space = ' ';
+        Character openP = '(';
+        Character closP = ')';
+        char[] retChars = new char[chars.length];
+        for (int i = 0; i < chars.length; i++) {
+            Character c = chars[i];
+            /** Messy code but at least it wont uneccesarily
+             *  run permutes for characters that will not change*/
+            if (!c.equals(space)&&!c.equals(openP)&&!c.equals(closP)) {
+                for (int j = 0; j < posn; j++){
+                    c = perm.invert(c);
+                }
+            }
+            retChars[i] = c;
+        }
+        return retChars;
     }
 
     /** Return the conversion of P (an integer in the range 0..size()-1)

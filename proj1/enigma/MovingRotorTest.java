@@ -41,6 +41,21 @@ public class MovingRotorTest {
         }
     }
 
+    private void checkRotor(Rotor rot, String testId,
+                            String fromAlpha, String toAlpha) {
+        int N = fromAlpha.length();
+        assertEquals(testId + " (wrong length)", N, rot.size());
+        for (int i = 0; i < N; i += 1) {
+            char c = fromAlpha.charAt(i), e = toAlpha.charAt(i);
+            int ci = rot.alphabet().str.indexOf(c)
+                    , ei = rot.alphabet().str.indexOf(e);
+            assertEquals(msg(testId, "wrong translation of %d (%c)", ci, c),
+                    ei, rot.convertForward(ci));
+            assertEquals(msg(testId, "wrong inverse of %d (%c)", ei, e),
+                    ci, rot.convertBackward(ei));
+        }
+    }
+
     /** Set the rotor to the one with given NAME and permutation as
      *  specified by the NAME entry in ROTORS, with given NOTCHES. */
     private void setRotor(String name, HashMap<String, String> rotors,
@@ -58,10 +73,10 @@ public class MovingRotorTest {
     }
 
     @Test
-    public void checkrotoratA_2() {
+    public void checkrotoratB() {
         setRotor("I", NAVALA, "");
         rotor.set(1);
-        checkRotor("Rotor I advanced", UPPER_STRING, NAVALB_MAP.get("I"));
+        checkRotor("Rotor I set 1", UPPER_STRING, NAVALB_MAP.get("I"));
 
     }
     @Test
@@ -72,10 +87,18 @@ public class MovingRotorTest {
     }
 
     @Test
-    public void checkRotorSet() {
+    public void checkRotorSetZ() {
         setRotor("I", NAVALA, "");
         rotor.set(25);
-        checkRotor("Rotor I set", UPPER_STRING, NAVALZ_MAP.get("I"));
+        checkRotor("Rotor I set 25", UPPER_STRING, NAVALZ_MAP.get("I"));
+    }
+    @Test
+    public void checkWeirdAlphabet(){
+        Rotor vowels = new Rotor("Vowels",
+                new Permutation("(AIU) (EO)",new Alphabet("AEIOU")));
+        checkRotor(vowels,"Rotor vowels", "AEIOU","IOUEA");
+        vowels.set(1);
+        checkRotor(vowels,"Rotor vowels", "AEIOU","IOAUE");
     }
 
 }
