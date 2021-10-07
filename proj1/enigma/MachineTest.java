@@ -7,7 +7,6 @@ import org.junit.rules.Timeout;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import static enigma.TestUtils.*;
@@ -24,83 +23,78 @@ public class MachineTest {
     private final String alpha = UPPER_STRING;
     private final Alphabet _alph = new Alphabet(UPPER_STRING);
     private final Alphabet _vowels = new Alphabet("AEIOUY");
-    private Rotor I = new MovingRotor("I",
+    private Rotor _I = new MovingRotor("I",
             new Permutation(NAVALA.get("I"), _alph), "Q");
-    private Rotor II = new MovingRotor("II",
+    private Rotor _II = new MovingRotor("II",
             new Permutation(NAVALA.get("II"), _alph), "E");
-    private Rotor III = new MovingRotor("III",
+    private Rotor _III = new MovingRotor("III",
             new Permutation(NAVALA.get("III"), _alph), "V");
-    private Rotor IV = new MovingRotor("IV",
+    private Rotor _IV = new MovingRotor("IV",
             new Permutation(NAVALA.get("IV"), _alph), "J");
-    private Rotor V = new MovingRotor("V",
+    private Rotor _V = new MovingRotor("V",
             new Permutation(NAVALA.get("V"), _alph), "Z");
-    private Rotor VI = new MovingRotor("VI",
+    private Rotor _VI = new MovingRotor("VI",
             new Permutation(NAVALA.get("VI"), _alph), "ZM");
-    private Rotor VII = new MovingRotor("VII",
+    private Rotor _VII = new MovingRotor("VII",
             new Permutation(NAVALA.get("VII"), _alph), "ZM");
-    private Rotor VIII = new MovingRotor("VIII",
+    private Rotor _VIII = new MovingRotor("VIII",
             new Permutation(NAVALA.get("VIII"), _alph), "ZM");
-    private Rotor Beta = new FixedRotor("Beta",
+    private Rotor _Beta = new FixedRotor("Beta",
             new Permutation(NAVALA.get("Beta"), _alph));
-    private Rotor Gamma = new FixedRotor("Gamma",
+    private Rotor _Gamma = new FixedRotor("Gamma",
             new Permutation(NAVALA.get("Gamma"), _alph));
-    private Rotor B = new Reflector("B",
+    private Rotor _B = new Reflector("B",
             new Permutation(NAVALA.get("B"), _alph));
-    private Rotor C = new Reflector("C",
+    private Rotor _C = new Reflector("C",
             new Permutation(NAVALA.get("C"), _alph));
-
-    private Rotor First = new Reflector("First",
+    private Rotor _First = new Reflector("First",
             new Permutation("(AI) (EO) (UY)", _vowels));
-
-    private Rotor Second = new FixedRotor("Second",
+    private Rotor _Second = new FixedRotor("Second",
             new Permutation("(AIU) (EO)", _vowels));
-
-    private Rotor Third = new MovingRotor("Third",
+    private Rotor _Third = new MovingRotor("Third",
             new Permutation("(AO) (EY)", _vowels), "");
-
-    private Rotor Fourth = new MovingRotor("Fourth",
+    private Rotor _Fourth = new MovingRotor("Fourth",
             new Permutation("(UY) (IA)", _vowels), "");
-
-    private Rotor Epsilon = new FixedRotor("Epsilon",
+    private Rotor _Epsilon = new FixedRotor("Epsilon",
             new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", _alph));
-    private Rotor VOID1 = new MovingRotor("VOID1",
+    private Rotor _VOID1 = new MovingRotor("VOID1",
             new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", _alph), "");
-    private Rotor VOID2 = new MovingRotor("VOID2",
+    private Rotor _VOID2 = new MovingRotor("VOID2",
             new Permutation("(ZYXWVUTSRQPONMLKJIHGFEDCBA)", _alph), "");
-    private Rotor VOID = new MovingRotor("VOID",
-            new Permutation("(AE) (BN) (CK) (DQ) (FU) (GY) " +
-                    "(HW) (IJ) (LO) (MP) (RX) (SZ) (TV)", _alph), "");
+    private Rotor _VOID = new MovingRotor("VOID",
+            new Permutation("(AE) (BN) (CK) (DQ) (FU) (GY) "
+                    + "(HW) (IJ) (LO) (MP) (RX) (SZ) (TV)", _alph), "");
 
     private ArrayList<Rotor> allRotors = new ArrayList<Rotor>(20);
 
     private void constructAllRotors() {
-        allRotors.add(I);
-        allRotors.add(II);
-        allRotors.add(III);
-        allRotors.add(IV);
-        allRotors.add(V);
-        allRotors.add(VI);
-        allRotors.add(VII);
-        allRotors.add(VIII);
-        allRotors.add(Beta);
-        allRotors.add(Gamma);
-        allRotors.add(B);
-        allRotors.add(C);
-        allRotors.add(First);
-        allRotors.add(Second);
-        allRotors.add(Third);
-        allRotors.add(Fourth);
-        allRotors.add(Epsilon);
-        allRotors.add(VOID1);
-        allRotors.add(VOID2);
-        allRotors.add(VOID);
+        allRotors.add(_I);
+        allRotors.add(_II);
+        allRotors.add(_III);
+        allRotors.add(_IV);
+        allRotors.add(_V);
+        allRotors.add(_VI);
+        allRotors.add(_VII);
+        allRotors.add(_VIII);
+        allRotors.add(_Beta);
+        allRotors.add(_Gamma);
+        allRotors.add(_B);
+        allRotors.add(_C);
+        allRotors.add(_First);
+        allRotors.add(_Second);
+        allRotors.add(_Third);
+        allRotors.add(_Fourth);
+        allRotors.add(_Epsilon);
+        allRotors.add(_VOID1);
+        allRotors.add(_VOID2);
+        allRotors.add(_VOID);
 
 
 
     }
 
     public void advanc(Machine mach, HashMap hash, int[] arr) {
-        for (int i = 0; i< arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             Rotor r = (Rotor) mach.myRotors().get("Rotor" + i);
             assertEquals("advance method is wrong", arr[i], r.setting());
         }
@@ -115,7 +109,8 @@ public class MachineTest {
         funfMaschine.setRotors("AAAA");
         Permutation perm = new Permutation("(CK) (MX) (LV)", _alph);
         funfMaschine.setPlugboard(perm);
-        assertEquals("Wrong...", "CPKUR MPUXR HEGBW CUQTJ", funfMaschine.convert("WHERE DID ALL THE FISH GO"));
+        assertEquals("Wrong...", "CPKUR MPUXR HEGBW CUQTJ",
+                funfMaschine.convert("WHERE DID ALL THE FISH GO"));
     }
 
     @Test
@@ -127,7 +122,8 @@ public class MachineTest {
         funfMaschine.setRotors("AAAA");
         Permutation perm = new Permutation("", _alph);
         funfMaschine.setPlugboard(perm);
-        assertEquals("Wrong...", "ILBDA AMTAZ", funfMaschine.convert("HELLO WORLD"));
+        assertEquals("Wrong...", "ILBDA AMTAZ",
+                funfMaschine.convert("HELLO WORLD"));
     }
 
     @Test
@@ -176,14 +172,14 @@ public class MachineTest {
     }
 
     @Test
-    public void checkPlugs(){
+    public void checkPlugs() {
         constructAllRotors();
         Machine plugged = new Machine(_alph, 5, 3, allRotors);
         String[] str = {"B", "Epsilon", "VOID2", "VOID1", "VOID"};
         plugged.insertRotors(str);
         plugged.setRotors("AAAA");
-        Permutation perm = new Permutation("(AE) (BN) (CK)" +
-                " (DQ) (FU) (GY) (HW) (IJ) (LO) (MP) (RX) (SZ) (TV)", _alph);
+        Permutation perm = new Permutation("(AE) (BN) (CK)"
+                + " (DQ) (FU) (GY) (HW) (IJ) (LO) (MP) (RX) (SZ) (TV)", _alph);
         plugged.setPlugboard(perm);
     }
 

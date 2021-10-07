@@ -38,8 +38,8 @@ class Machine {
      *  Initially, all rotors are set at their 0 setting. */
     void insertRotors(String[] rotors) {
         if (rotors.length != _numRotors) {
-            throw error("string[] not the same as required num" +
-                    "of rotors");
+            throw error("string[] not the same as required num"
+                    + "of rotors");
         }
         for (Object o : _allRotors) {
             Rotor r = (Rotor) o;
@@ -67,15 +67,17 @@ class Machine {
     }
 
     /** Checks if _myRotors is propery ordered
-     * (no rotatable rotors before fixed rotors). */
-    void checkOrder(HashMap map){
+     * (no rotatable rotors before fixed rotors).
+     * @param map is Hashmap of Machine's Rotors*/
+    void checkOrder(HashMap map) {
         boolean prevCanRotate = true;
-        for (int i = numRotors()-1; i != 0; i--) {
+        for (int i = numRotors() - 1; i != 0; i--) {
             Rotor current = (Rotor) map.get("Rotor" + i);
             if (!prevCanRotate && current.rotates()) {
                 throw error("Rotors not ordered correctly");
 
-            }            if (!current.rotates()) {
+            }
+            if (!current.rotates()) {
                 prevCanRotate = false;
 
             }
@@ -92,13 +94,13 @@ class Machine {
         }
         for (int i = 1; i < numRotors(); i++) {
             Rotor r = _myRotors.get("Rotor" + i);
-            r.set(sets[i-1]);
+            r.set(sets[i - 1]);
         }
     }
 
     /** Set the plugboard to PLUGBOARD. */
     void setPlugboard(Permutation plugboard) {
-        if (!plugboard.alphabet().equals(_alphabet)){
+        if (!plugboard.alphabet().equals(_alphabet)) {
             throw error("inconsistent alphabet btwn plugboard and machine");
         }
         _plugboard = plugboard;
@@ -109,7 +111,7 @@ class Machine {
      *  the machine. */
     int convert(int c) {
         advancer(_numRotors - 1, true, _numPawls);
-        c =_plugboard.permute(c);
+        c = _plugboard.permute(c);
         for (int i = _numRotors - 1; i != 0; i--) {
             c = _myRotors.get("Rotor" + i).convertForward(c);
         }
@@ -117,11 +119,17 @@ class Machine {
         for (int j = 1; j < _numRotors; j++) {
             c = _myRotors.get("Rotor" + j).convertBackward(c);
         }
-        c=_plugboard.invert(c);
+        c = _plugboard.invert(c);
         return c;
     }
-    /** advances rotors based on rotor num (decreasing) and if pawl is touching rotor*/
-    void advancer(int i, boolean pawlTouchMe, int pawlLeft){
+    /** advances rotors based on rotor num (decreasing)
+     *  and if pawl is touching rotor.
+     *  @param i is index of current rotor
+     *  @param pawlTouchMe is true iff previous rotor
+     *  is at notch or if rotor is rightmost rotor
+     *  @param pawlLeft is how many pawls remain to move rotors
+     *  */
+    void advancer(int i, boolean pawlTouchMe, int pawlLeft) {
         Rotor me = _myRotors.get("Rotor" + i);
         if (i == 0 | pawlLeft == 0) {
             return;
@@ -154,7 +162,8 @@ class Machine {
         return msg;
     }
 
-    /** returns a modified string that has words of size 5. */
+    /** returns a modified string that has words of size 5.
+     * @param str is string to be modified*/
     String wordSize(String str) {
         if (str.length() < 6) {
             return str;
@@ -165,7 +174,7 @@ class Machine {
     }
 
     /** returns _myRotors. */
-    HashMap myRotors(){
+    HashMap myRotors() {
         return _myRotors;
     }
 

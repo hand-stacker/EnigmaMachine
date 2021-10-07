@@ -35,8 +35,8 @@ class MovingRotor extends Rotor {
      *  to advance. */
     boolean atNotch() {
         for (char c: _notches) {
-            Character Ch = (Character) alphabet().toChar(_setting);
-            if (Ch.equals((Character) c)) {
+            Character ch = (Character) alphabet().toChar(_setting);
+            if (ch.equals((Character) c)) {
                 return true;
             }
         }

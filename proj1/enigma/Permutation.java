@@ -52,7 +52,8 @@ class Permutation {
         _charMap.put(cycle.charAt(cycle.length() - 1), cycle.charAt(0));
         _invMap.put(cycle.charAt(0), cycle.charAt(cycle.length() - 1));
     }
-    /** Updates HashMaps of Permutation with cycles "(ABC) (DEF)". */
+    /** Updates HashMaps of Permutation with cycles "(ABC) (DEF)".
+     * @param cycles is cycles to update Permutation by */
     protected void updateCycles(String cycles) {
         _charMap = new HashMap<>();
         _invMap = new HashMap<>();

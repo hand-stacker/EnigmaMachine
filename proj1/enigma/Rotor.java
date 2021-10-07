@@ -61,14 +61,15 @@ class Rotor {
         _setting = posn;
     }
 
-    /** Set setting() to POSN, useful in advance().  */
+    /** Set setting() to POSN, useful in advance().
+     *  @param set is the current setting of Rotor */
     void set(int posn, int set) {
 
         String cycles = _permutation.getCycles();
         Permutation newPerm =
                 new Permutation("(" + alphabet().str + ")", alphabet());
         char[] charArr = cycles.toCharArray();
-        char[] newcycles = setCycles(newPerm, charArr, posn- set);
+        char[] newcycles = setCycles(newPerm, charArr, posn - set);
         _permutation.updateCycles(String.valueOf(newcycles));
         _setting = posn;
     }
@@ -78,9 +79,14 @@ class Rotor {
         set(posn - 1);
         _setting += 1;
     }
-    /** Helper function that updates a cyles in char[] form to a
-     * new char[] where charcters other than space or parenthesis
-     * will be inversed by a set permutation 'count' number of times. */
+    /** Helper function that updates a cycles in char[] form to a
+     * new char[] where characters other than space or parenthesis
+     * will be inverse by a set permutation 'count' number of times.
+     * @param count is the number of permutations that have to be made
+     * @param perm is helper Permutation that shifts characters of
+     * specific alphabet
+     * @param chars is old Permutation of Rotor in char[] form
+     * @return is the new Permutation Rotor gets*/
     private char[] setCycles(Permutation perm, char[] chars, int count) {
         Character space = ' ';
         Character openP = '(';
