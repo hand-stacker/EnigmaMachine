@@ -61,7 +61,17 @@ public class MachineTest {
     private Rotor Fourth = new MovingRotor("Fourth",
             new Permutation("(UY) (IA)", _vowels), "");
 
-    private ArrayList<Rotor> allRotors = new ArrayList<Rotor>(16);
+    private Rotor Epsilon = new FixedRotor("Epsilon",
+            new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", _alph));
+    private Rotor VOID1 = new MovingRotor("VOID1",
+            new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", _alph), "");
+    private Rotor VOID2 = new MovingRotor("VOID2",
+            new Permutation("(ZYXWVUTSRQPONMLKJIHGFEDCBA)", _alph), "");
+    private Rotor VOID = new MovingRotor("VOID",
+            new Permutation("(AE) (BN) (CK) (DQ) (FU) (GY) " +
+                    "(HW) (IJ) (LO) (MP) (RX) (SZ) (TV)", _alph), "");
+
+    private ArrayList<Rotor> allRotors = new ArrayList<Rotor>(20);
 
     private void constructAllRotors() {
         allRotors.add(I);
@@ -80,6 +90,11 @@ public class MachineTest {
         allRotors.add(Second);
         allRotors.add(Third);
         allRotors.add(Fourth);
+        allRotors.add(Epsilon);
+        allRotors.add(VOID1);
+        allRotors.add(VOID2);
+        allRotors.add(VOID);
+
 
 
     }
@@ -158,6 +173,18 @@ public class MachineTest {
         advanc(funfMaschine, funfMaschine.myRotors(), arr);
 
 
+    }
+
+    @Test
+    public void checkPlugs(){
+        constructAllRotors();
+        Machine plugged = new Machine(_alph, 5, 3, allRotors);
+        String[] str = {"B", "Epsilon", "VOID2", "VOID1", "VOID"};
+        plugged.insertRotors(str);
+        plugged.setRotors("AAAA");
+        Permutation perm = new Permutation("(AE) (BN) (CK)" +
+                " (DQ) (FU) (GY) (HW) (IJ) (LO) (MP) (RX) (SZ) (TV)", _alph);
+        plugged.setPlugboard(perm);
     }
 
 
