@@ -1,9 +1,11 @@
 package enigma;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+
 import static enigma.EnigmaException.*;
 
 /** Class that represents a reflector in the enigma.
- *  @author
+ *  @author Jeremy Lazo
  */
 class Reflector extends FixedRotor {
 
@@ -11,10 +13,13 @@ class Reflector extends FixedRotor {
      * is PERM. */
     Reflector(String name, Permutation perm) {
         super(name, perm);
-        // FIXME
+        _setting = 0;
     }
 
-    // FIXME?
+    @Override
+    boolean reflecting(){
+        return true;
+    }
 
     @Override
     void set(int posn) {
@@ -22,5 +27,6 @@ class Reflector extends FixedRotor {
             throw error("reflector has only one position");
         }
     }
+    private int _setting;
 
 }

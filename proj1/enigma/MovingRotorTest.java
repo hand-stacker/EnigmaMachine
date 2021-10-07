@@ -10,7 +10,7 @@ import java.util.HashMap;
 import static enigma.TestUtils.*;
 
 /** The suite of all JUnit tests for the Permutation class.
- *  @author
+ *  @author Jeremy Lazo
  */
 public class MovingRotorTest {
 
@@ -77,6 +77,9 @@ public class MovingRotorTest {
         setRotor("I", NAVALA, "");
         rotor.set(1);
         checkRotor("Rotor I set 1", UPPER_STRING, NAVALB_MAP.get("I"));
+        rotor.set('Z');
+        checkRotor("Rotor I set 1", UPPER_STRING, NAVALZ_MAP.get("I"));
+        assertTrue("setting is wrong", rotor.setting() == 25);
 
     }
     @Test
@@ -84,6 +87,7 @@ public class MovingRotorTest {
         setRotor("I", NAVALA, "");
         rotor.advance();
         checkRotor("Rotor I advanced", UPPER_STRING, NAVALB_MAP.get("I"));
+        assertTrue("rotate() method wrong", rotor.rotates());
     }
 
     @Test
@@ -99,6 +103,31 @@ public class MovingRotorTest {
         checkRotor(vowels,"Rotor vowels", "AEIOU","IOUEA");
         vowels.set(1);
         checkRotor(vowels,"Rotor vowels", "AEIOU","IOAUE");
+        vowels.set('I');
+        checkRotor(vowels,"Rotor vowels", "AEIOU","IUOAE");
+
+    }
+
+    @Test
+    public void checkFixedRotor() {
+        FixedRotor fixed = new FixedRotor("fixed",
+                new Permutation(NAVALA.get("Beta"), UPPER));
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta") );
+        fixed.set(1);
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta") );
+        assertTrue("Setting is not correct", fixed.setting() == 1);
+        fixed.set('C');
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta") );
+        assertTrue("Setting is not correct", fixed.setting() == 2);
+
+    }
+
+    @Test
+    public void checkReflector() {
+        Reflector reflector = new Reflector("reflector",
+                new Permutation(NAVALA.get("B"), UPPER));
+        checkRotor(reflector, "Reflector B", UPPER_STRING, "ENKQAUYWJICOPBLMDXZVFTHRGS");
+
     }
 
 }
