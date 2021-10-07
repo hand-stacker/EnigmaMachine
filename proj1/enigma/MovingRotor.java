@@ -28,6 +28,20 @@ class MovingRotor extends Rotor {
     boolean rotates() {
         return true;
     }
+
+    @Override
+    /** Returns true iff I am positioned to allow the rotor to my left
+     *  to advance. */
+    boolean atNotch() {
+        for (char c: _notches) {
+            Character Ch = (Character) alphabet().toChar(_setting);
+            if (Ch.equals((Character) c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** New Instance variable for all notches. */
     private char[] _notches;
     /** Instance variable of _settings. */

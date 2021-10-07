@@ -84,10 +84,20 @@ public class MovingRotorTest {
     }
     @Test
     public void checkRotorAdvance() {
-        setRotor("I", NAVALA, "");
+        setRotor("I", NAVALA, "CGH");
         rotor.advance();
         checkRotor("Rotor I advanced", UPPER_STRING, NAVALB_MAP.get("I"));
         assertTrue("rotate() method wrong", rotor.rotates());
+        assertTrue("setting not updated", rotor.setting() == 1);
+        assertFalse(rotor.atNotch());
+        rotor.advance();
+        assertTrue("setting not updated", rotor.setting() == 2);
+        assertTrue(rotor.atNotch());
+        rotor.advance();
+        assertTrue("setting not updated", rotor.setting() == 3);
+        assertFalse(rotor.atNotch());
+
+
     }
 
     @Test

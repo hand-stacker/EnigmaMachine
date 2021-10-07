@@ -28,6 +28,6 @@ class Reflector extends FixedRotor {
         }
     }
     /** Int that represents the current setting of Reflector. */
-    private int _setting;
+    private final int _setting;
 
 }
