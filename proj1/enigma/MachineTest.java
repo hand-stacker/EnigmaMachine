@@ -68,7 +68,13 @@ public class MachineTest {
     @Test
     public void check5Machine() {
         constructAllRotors();
-        Machine funfMaschine = new Machine(_alph, 5, 4, allRotors);
+        Machine funfMaschine = new Machine(_alph, 5, 3, allRotors);
+        String[] str = {"B", "Gamma", "I", "II", "III"};
+        funfMaschine.insertRotors(str);
+        funfMaschine.setRotors("AAAA");
+        Permutation perm = new Permutation("(CK) (MX) (LV)", _alph);
+        funfMaschine.setPlugboard(perm);
+        funfMaschine.convert("TEST A");
     }
 
 

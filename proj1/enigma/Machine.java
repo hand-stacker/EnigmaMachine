@@ -20,6 +20,7 @@ class Machine {
         _numRotors = numRotors;
         _numPawls = pawls;
         _allRotors = (ArrayList) allRotors;
+        _myRotors = new HashMap<String, Rotor>(numRotors);
     }
 
     /** Return the number of rotor slots I have. */
@@ -51,7 +52,7 @@ class Machine {
             }
             for (int i = 1; i < rotors.length; i++) {
                 if (rotors[i].equals(r.name())) {
-                    if (_myRotors.containsValue(r)) {
+                    if (!_myRotors.isEmpty() && _myRotors.containsValue(r)) {
                         throw error("Duplicate Rotors");
                     }
                     if (r.reflecting()) {
@@ -107,7 +108,7 @@ class Machine {
      *  index in the range 0..alphabet size - 1), after first advancing
      *  the machine. */
     int convert(int c) {
-        // advance here
+        advancer(_numRotors - 1, true, _numPawls);
         c =_plugboard.permute(c);
         for (int i = _numRotors - 1; i != 0; i--) {
             c = _myRotors.get("Rotor" + i).convertForward(c);
@@ -119,10 +120,20 @@ class Machine {
         c=_plugboard.invert(c);
         return c;
     }
-
-    void advancer(int i){
-        if (_myRotors.get("Rotor" + i + 1).atNotch()) {
-            //sidestep
+    /** advances rotors based on rotor num (decreasing) and if pawl is touching rotor*/
+    void advancer(int i, boolean pawlTouchMe, int pawlLeft){
+        Rotor me = _myRotors.get("Rotor" + i);
+        if (i == 0 | pawlLeft == 0) {
+            return;
+        }
+        if (me.atNotch()) {
+            advancer(i - 1, true, pawlLeft - 1);
+            me.advance();
+        } else if (pawlTouchMe) {
+            advancer(i - 1, false, pawlLeft - 1);
+            me.advance();
+        } else {
+            advancer(i - 1, false, pawlLeft - 1);
         }
     }
 
@@ -131,10 +142,14 @@ class Machine {
     String convert(String msg) {
         char[] tmsg = msg.toCharArray();
         for (int i = 0; i < tmsg.length; i++) {
-            tmsg[i] = _alphabet.toChar(
-                    convert(_alphabet.toInt(tmsg[i])));
+            if (_alphabet.contains(tmsg[i])) {
+                tmsg[i] = _alphabet.toChar(
+                        convert(_alphabet.toInt(tmsg[i])));
+            }
+
         }
         msg = tmsg.toString();
+        System.out.println(msg);
         return msg;
     }
 
