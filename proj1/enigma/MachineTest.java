@@ -121,10 +121,14 @@ public class MachineTest {
         Machine vow = new Machine(_vowels, 3, 1, allRotors);
         String[] str = {"First", "Second", "Third"};
         vow.insertRotors(str);
-        vow.setRotors("AAA");
+        vow.setRotors("AA");
         Permutation perm = new Permutation("", _vowels);
         vow.setPlugboard(perm);
-        assertEquals("Wrong...", "OEEA", vow.convert("AAAA"));
+        int[] arr = {0, 0, 0};
+        advanc(vow, vow.myRotors(), arr);
+        assertEquals("Wrong...", "UEEU", vow.convert("AAAA"));
+        arr = new int[] {0, 0, 4};
+        advanc(vow, vow.myRotors(), arr);
     }
 
     @Test
@@ -137,6 +141,7 @@ public class MachineTest {
         Permutation perm = new Permutation("(CK) (MX) (LV)", _alph);
         funfMaschine.setPlugboard(perm);
         funfMaschine.convert('C');
+        Rotor row = (Rotor) funfMaschine.myRotors().get("Rotor4");
         int[] arr = new int[] {0, 0, 0, 0, 1};
         advanc(funfMaschine, funfMaschine.myRotors(), arr);
         funfMaschine.convert('C');
@@ -144,6 +149,12 @@ public class MachineTest {
         advanc(funfMaschine, funfMaschine.myRotors(), arr);
         funfMaschine.convert('C');
         arr = new int[] {0, 0, 0, 0, 3};
+        advanc(funfMaschine, funfMaschine.myRotors(), arr);
+        funfMaschine.convert('C');
+        arr = new int[] {0, 0, 0, 0, 4};
+        advanc(funfMaschine, funfMaschine.myRotors(), arr);
+        funfMaschine.convert('C');
+        arr = new int[] {0, 0, 0, 0, 5};
         advanc(funfMaschine, funfMaschine.myRotors(), arr);
 
 

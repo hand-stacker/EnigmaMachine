@@ -84,7 +84,7 @@ public class MovingRotorTest {
     }
     @Test
     public void checkRotorAdvance() {
-        setRotor("I", NAVALA, "CGH");
+        setRotor("I", NAVALA, "");
         rotor.advance();
         checkRotor("Rotor I advanced", UPPER_STRING, NAVALB_MAP.get("I"));
         assertTrue("rotate() method wrong", rotor.rotates());

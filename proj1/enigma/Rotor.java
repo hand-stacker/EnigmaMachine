@@ -61,6 +61,17 @@ class Rotor {
         _setting = posn;
     }
 
+    /** Set setting() to POSN, useful in advance().  */
+    void set(int posn, int set) {
+
+        String cycles = _permutation.getCycles();
+        Permutation newPerm =
+                new Permutation("(" + alphabet().str + ")", alphabet());
+        char[] charArr = cycles.toCharArray();
+        char[] newcycles = setCycles(newPerm, charArr, posn- set);
+        _permutation.updateCycles(String.valueOf(newcycles));
+        _setting = posn;
+    }
     /** Set setting() to character CPOSN. */
     void set(char cposn) {
         int posn = _permutation.alphabet().toInt(cposn);

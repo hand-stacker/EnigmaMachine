@@ -156,7 +156,7 @@ class Machine {
 
     /** returns a modified string that has words of size 5. */
     String wordSize(String str) {
-        if (str.length() < 5) {
+        if (str.length() < 6) {
             return str;
         } else {
             return str.substring(0, 5) + " " + wordSize(str.substring(5));
