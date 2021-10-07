@@ -47,8 +47,8 @@ public class MovingRotorTest {
         assertEquals(testId + " (wrong length)", N, rot.size());
         for (int i = 0; i < N; i += 1) {
             char c = fromAlpha.charAt(i), e = toAlpha.charAt(i);
-            int ci = rot.alphabet().str.indexOf(c)
-                    , ei = rot.alphabet().str.indexOf(e);
+            int ci = rot.alphabet().str.indexOf(c),
+                    ei = rot.alphabet().str.indexOf(e);
             assertEquals(msg(testId, "wrong translation of %d (%c)", ci, c),
                     ei, rot.convertForward(ci));
             assertEquals(msg(testId, "wrong inverse of %d (%c)", ei, e),
@@ -97,14 +97,14 @@ public class MovingRotorTest {
         checkRotor("Rotor I set 25", UPPER_STRING, NAVALZ_MAP.get("I"));
     }
     @Test
-    public void checkWeirdAlphabet(){
+    public void checkWeirdAlphabet() {
         Rotor vowels = new Rotor("Vowels",
-                new Permutation("(AIU) (EO)",new Alphabet("AEIOU")));
-        checkRotor(vowels,"Rotor vowels", "AEIOU","IOUEA");
+                new Permutation("(AIU) (EO)", new Alphabet("AEIOU")));
+        checkRotor(vowels, "Rotor vowels", "AEIOU", "IOUEA");
         vowels.set(1);
-        checkRotor(vowels,"Rotor vowels", "AEIOU","IOAUE");
+        checkRotor(vowels, "Rotor vowels", "AEIOU", "IOAUE");
         vowels.set('I');
-        checkRotor(vowels,"Rotor vowels", "AEIOU","IUOAE");
+        checkRotor(vowels, "Rotor vowels", "AEIOU", "IUOAE");
 
     }
 
@@ -112,12 +112,12 @@ public class MovingRotorTest {
     public void checkFixedRotor() {
         FixedRotor fixed = new FixedRotor("fixed",
                 new Permutation(NAVALA.get("Beta"), UPPER));
-        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta") );
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta"));
         fixed.set(1);
-        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta") );
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta"));
         assertTrue("Setting is not correct", fixed.setting() == 1);
         fixed.set('C');
-        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta") );
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta"));
         assertTrue("Setting is not correct", fixed.setting() == 2);
 
     }
@@ -126,7 +126,8 @@ public class MovingRotorTest {
     public void checkReflector() {
         Reflector reflector = new Reflector("reflector",
                 new Permutation(NAVALA.get("B"), UPPER));
-        checkRotor(reflector, "Reflector B", UPPER_STRING, "ENKQAUYWJICOPBLMDXZVFTHRGS");
+        checkRotor(reflector, "Reflector B", UPPER_STRING,
+                "ENKQAUYWJICOPBLMDXZVFTHRGS");
 
     }
 

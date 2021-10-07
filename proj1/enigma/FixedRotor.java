@@ -15,9 +15,10 @@ class FixedRotor extends Rotor {
         _setting = super.setting();
     }
 
-    /** Overrides set methods of Rotor, thus removing the ability for rotor to move*/
+    /** Overrides set methods of Rotor,
+     *  removing the ability for rotor to move. */
     @Override
-    void set(int posn){
+    void set(int posn) {
         _setting = posn;
     }
 
@@ -27,11 +28,13 @@ class FixedRotor extends Rotor {
         set(posn);
     }
     /** returns this.setting, if not overridden,
-     * settin() would return super.setting */
+     * settin() would return super.setting. */
     @Override
     int setting() {
         return _setting;
     }
+    /** Instance variable for permutation. */
     private Permutation _permutation;
+    /** Instance variable for _setting. */
     private int _setting;
 }

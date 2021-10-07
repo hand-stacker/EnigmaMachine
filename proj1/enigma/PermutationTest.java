@@ -51,17 +51,21 @@ public class PermutationTest {
         checkPerm("identity", UPPER_STRING, UPPER_STRING);
         assertFalse((msg("identity", "wrong derangement")), perm.derangement());
 
-        perm = new Permutation(NAVALA.get("I"), new Alphabet(NAVALA_MAP.get("I")));
+        perm = new Permutation(NAVALA.get("I"),
+                new Alphabet(NAVALA_MAP.get("I")));
         checkPerm("I rotor", UPPER_STRING, NAVALA_MAP.get("I"));
         assertFalse((msg("I rotot", "wrong derangement")), perm.derangement());
 
-        perm = new Permutation(NAVALA.get("IV"), new Alphabet(NAVALA_MAP.get("IV")));
+        perm = new Permutation(NAVALA.get("IV"),
+                new Alphabet(NAVALA_MAP.get("IV")));
         checkPerm("IV rotor", UPPER_STRING, NAVALA_MAP.get("IV"));
         assertTrue((msg("IV rotot", "wrong derangement")), perm.derangement());
 
         perm = new Permutation("(AGB) (FH) (S)", UPPER);
-        checkPerm("duplicate cycles", UPPER_STRING, "GACDEHBFIJKLMNOPQRSTUVWXYZ");
-        assertFalse((msg("duplicate cycles", "wrong derangement")), perm.derangement());
+        checkPerm("duplicate cycles", UPPER_STRING,
+                "GACDEHBFIJKLMNOPQRSTUVWXYZ");
+        assertFalse((msg("duplicate cycles",
+                "wrong derangement")), perm.derangement());
 
     }
 

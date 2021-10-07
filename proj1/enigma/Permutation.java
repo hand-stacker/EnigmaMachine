@@ -1,13 +1,9 @@
 package enigma;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
 
 import static enigma.EnigmaException.*;
 
-import static enigma.EnigmaException.*;
 import static enigma.TestUtils.msg;
 
 /** Represents a permutation of a range of integers starting at 0 corresponding
@@ -32,44 +28,55 @@ class Permutation {
      *  c0c1...cm. */
     private void addCycle(String cycle) {
         for (char a: cycle.toCharArray()) {
-            if (_charMap.containsKey(a)) {throw error(msg("addCycles",
-                    "character %c already in a cycle", cycle.charAt(0)));}
+            if (_charMap.containsKey(a)) {
+                throw error(msg("addCycles",
+                    "character %c already in a cycle", cycle.charAt(0)));
+            }
 
         }
-        if (!_alphabet.contains(cycle.charAt(0))) {throw error(msg("addCycles",
-                "character %c not found in alphabet", cycle.charAt(0)));}
-
-        for (int i = 0; i < cycle.length() - 1; i ++) {
-            char _from = cycle.charAt(i);
-            char _to = cycle.charAt(i+1);
-            if (!_alphabet.contains(_to)) {throw error(msg("addCycles",
-                    "character %c not found in alphabet", _to));}
-            _charMap.put(_from, _to);
-            _invMap.put(_to, _from);
+        if (!_alphabet.contains(cycle.charAt(0))) {
+            throw error(msg("addCycles",
+                "character %c not found in alphabet", cycle.charAt(0)));
         }
-        _charMap.put(cycle.charAt(cycle.length()-1), cycle.charAt(0));
-        _invMap.put(cycle.charAt(0), cycle.charAt(cycle.length()-1));
+
+        for (int i = 0; i < cycle.length() - 1; i++) {
+            char from = cycle.charAt(i);
+            char to = cycle.charAt(i + 1);
+            if (!_alphabet.contains(to)) {
+                throw error(msg("addCycles",
+                    "character %c not found in alphabet", to));
+            }
+            _charMap.put(from, to);
+            _invMap.put(to, from);
+        }
+        _charMap.put(cycle.charAt(cycle.length() - 1), cycle.charAt(0));
+        _invMap.put(cycle.charAt(0), cycle.charAt(cycle.length() - 1));
     }
-    /** Updates HashMaps of Permutation with cycles "(ABC) (DEF)"*/
-    protected void updateCycles(String cycles){
+    /** Updates HashMaps of Permutation with cycles "(ABC) (DEF)". */
+    protected void updateCycles(String cycles) {
         _charMap = new HashMap<>();
         _invMap = new HashMap<>();
         _cycles = cycles;
 
-        if (!cycles.equals("")){
-            String[] _s = cycles.split(" ");
-            for (String str : _s) { /* adds all switches in cycles */
-                if (!str.substring(0,1).equals("(") | !str.substring(str.length()-1,str.length()).equals(")") ) {throw error(msg("addCycles",
-                        "cycles not in correct format (ABC)"));}
-                str = str.substring(1,str.length()-1);
+        if (!cycles.equals("")) {
+            String[] s = cycles.split(" ");
+            for (String str : s) {
+                if (!str.substring(0, 1).equals("(")
+                        | !str.substring(str.length() - 1,
+                                str.length()).equals(")")) {
+                    throw error(msg("addCycles",
+                        "cycles not in correct format (ABC)"));
+                }
+                str = str.substring(1, str.length() - 1);
                 addCycle(str);
             }
         }
 
-        for (char c : _alphabet._chars.values()) { /* adds all chars not in cycle but in alphabet */
+        for (Object C : _alphabet.chars().values()) {
+            char c = (char) C;
             if (!_charMap.containsValue(c)) {
-                _charMap.put(c,c);
-                _invMap.put(c,c);
+                _charMap.put(c, c);
+                _invMap.put(c, c);
             }
         }
 
@@ -92,19 +99,19 @@ class Permutation {
     /** Return the result of applying this permutation to P modulo the
      *  alphabet size. */
     int permute(int p) {
-        p = wrap(p);
-        char _c = _alphabet.toChar(p);
-        int _i = _alphabet.toInt(permute(_c));
-        return _i;
+        int pi = wrap(p);
+        char c = _alphabet.toChar(pi);
+        int i = _alphabet.toInt(permute(c));
+        return i;
     }
 
     /** Return the result of applying the inverse of this permutation
      *  to  C modulo the alphabet size. */
     int invert(int c) {
-        c = wrap(c);
-        char _p = _alphabet.toChar(c);
-        int _i = _alphabet.toInt(invert(_p));
-        return _i;
+        int ci = wrap(c);
+        char p = _alphabet.toChar(ci);
+        int i = _alphabet.toInt(invert(p));
+        return i;
     }
 
     /** Return the result of applying this permutation to the index of P
@@ -126,19 +133,27 @@ class Permutation {
     /** Return true iff this permutation is a derangement (i.e., a
      *  permutation for which no value maps to itself). */
     boolean derangement() {
-        for (char c : _alphabet._chars.values()) {
-            if (permute(c) == c) {return false;}
+        for (Object C : _alphabet.chars().values()) {
+            char c = (char) C;
+            if (permute(c) == c) {
+                return false;
+            }
         }
         return true;
+    }
+    /** Returns _cycles. */
+    public String getCycles() {
+        return _cycles;
     }
 
     /** Alphabet of this permutation. */
     private Alphabet _alphabet;
 
-    /** Initializes a copy of original cycle*/
-    public String _cycles;
+    /** Initializes a copy of original cycle. */
+    private String _cycles;
 
-    /** HashMaps that translate chars*/
+    /** HashMap that permutes chars. */
     private HashMap<Character, Character> _charMap = new HashMap<>();
+    /** HashMap that inverses chars. */
     private HashMap<Character, Character> _invMap = new HashMap<>();
 }

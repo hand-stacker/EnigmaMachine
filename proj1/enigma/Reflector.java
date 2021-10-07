@@ -17,7 +17,7 @@ class Reflector extends FixedRotor {
     }
 
     @Override
-    boolean reflecting(){
+    boolean reflecting() {
         return true;
     }
 
@@ -27,6 +27,7 @@ class Reflector extends FixedRotor {
             throw error("reflector has only one position");
         }
     }
+    /** Int that represents the current setting of Reflector. */
     private int _setting;
 
 }

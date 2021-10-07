@@ -1,7 +1,5 @@
 package enigma;
 
-import java.util.Arrays;
-
 import static enigma.EnigmaException.*;
 
 /** Superclass that represents a rotor in the enigma machine.
@@ -54,9 +52,9 @@ class Rotor {
     /** Set setting() to POSN.  */
     void set(int posn) {
 
-        String cycles = _permutation._cycles;
-        /** update cycles to shift by posn */
-        Permutation newPerm = new Permutation("("+ alphabet().str + ")", alphabet());
+        String cycles = _permutation.getCycles();
+        Permutation newPerm =
+                new Permutation("(" + alphabet().str + ")", alphabet());
         char[] charArr = cycles.toCharArray();
         char[] newcycles = setCycles(newPerm, charArr, posn);
         _permutation.updateCycles(String.valueOf(newcycles));
@@ -66,12 +64,12 @@ class Rotor {
     /** Set setting() to character CPOSN. */
     void set(char cposn) {
         int posn = _permutation.alphabet().toInt(cposn);
-        set(posn-1);
+        set(posn - 1);
         _setting += 1;
     }
     /** Helper function that updates a cyles in char[] form to a
      * new char[] where charcters other than space or parenthesis
-     * will be inversed by a set permutation 'count' number of times*/
+     * will be inversed by a set permutation 'count' number of times. */
     private char[] setCycles(Permutation perm, char[] chars, int count) {
         Character space = ' ';
         Character openP = '(';
@@ -79,10 +77,8 @@ class Rotor {
         char[] retChars = new char[chars.length];
         for (int i = 0; i < chars.length; i++) {
             Character c = chars[i];
-            /** Messy code but at least it won't unnecessarily
-             *  run permutes for characters that should not change*/
-            if (!c.equals(space)&&!c.equals(openP)&&!c.equals(closP)) {
-                for (int j = 0; j < count; j++){
+            if (!c.equals(space) && !c.equals(openP) && !c.equals(closP)) {
+                for (int j = 0; j < count; j++) {
                     c = perm.invert(c);
                 }
             }
