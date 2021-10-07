@@ -140,6 +140,7 @@ class Machine {
     /** Returns the encoding/decoding of MSG, updating the state of
      *  the rotors accordingly. */
     String convert(String msg) {
+        msg = msg.replaceAll("\\s", "");
         char[] tmsg = msg.toCharArray();
         for (int i = 0; i < tmsg.length; i++) {
             if (_alphabet.contains(tmsg[i])) {
@@ -148,9 +149,24 @@ class Machine {
             }
 
         }
-        msg = tmsg.toString();
-        System.out.println(msg);
+        msg = String.valueOf(tmsg);
+        msg = wordSize(msg);
         return msg;
+    }
+
+    /** returns a modified string that has words of size 5. */
+    String wordSize(String str) {
+        if (str.length() < 5) {
+            return str;
+        } else {
+            return str.substring(0, 5) + " " + wordSize(str.substring(5));
+        }
+
+    }
+
+    /** returns _myRotors. */
+    HashMap myRotors(){
+        return _myRotors;
     }
 
     /** Common alphabet of my rotors. */
@@ -168,6 +184,6 @@ class Machine {
     /** HashMap of all of Machine's rotors. */
     private HashMap<String, Rotor> _myRotors;
 
-    /** permutation representing the plugboard.*/
+    /** permutation representing the plugboard. */
     private Permutation _plugboard;
 }
