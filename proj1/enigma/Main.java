@@ -80,11 +80,9 @@ public final class Main {
         Scanner iterations = _input.useDelimiter("\\*\\s");
         Machine thing = readConfig();
         while (iterations.hasNext()) {
-            Machine thisThing = new Machine(thing.alphabet(), thing.numRotor(),
-                    thing.numPawl(), thing.allRotors());
             Scanner thisiter = new Scanner(iterations.next());
             String settings = thisiter.nextLine();
-            setUp(thisThing, settings);
+            setUp(thing, settings);
             while (thisiter.hasNextLine()) {
                 String message = thisiter.nextLine();
                 printMessageLine(thing.convert(message));

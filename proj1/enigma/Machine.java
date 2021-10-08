@@ -20,7 +20,6 @@ class Machine {
         _numRotors = numRotors;
         _numPawls = pawls;
         _allRotors = (ArrayList) allRotors;
-        _myRotors = new HashMap<String, Rotor>(numRotors);
     }
 
     /** Return the number of rotor slots I have. */
@@ -37,6 +36,7 @@ class Machine {
      *  available rotors (ROTORS[0] names the reflector).
      *  Initially, all rotors are set at their 0 setting. */
     void insertRotors(String[] rotors) {
+        _myRotors = new HashMap<String, Rotor>(_numRotors);
         if (rotors.length != _numRotors) {
             throw error("string[] not the same as required num"
                     + "of rotors");
@@ -192,7 +192,7 @@ class Machine {
     }
 
     /** returns _allRotors. */
-    ArrayList allRotors() {
+    Collection allRotors() {
         return _allRotors;
     }
 
