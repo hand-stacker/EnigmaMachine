@@ -1,6 +1,8 @@
 
 package enigma;
 
+import java.util.HashMap;
+
 import static enigma.EnigmaException.*;
 
 /** Class that represents a rotor that has no ratchet and does not advance.
@@ -20,6 +22,8 @@ class FixedRotor extends Rotor {
      *  removing the ability for rotor to move. */
     @Override
     void set(int posn) {
+        HashMap sets = mySets();
+        _permutation.updateCycles((String) sets.get(posn));
         _setting = posn;
     }
 

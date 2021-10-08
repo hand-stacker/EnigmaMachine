@@ -131,18 +131,18 @@ public final class Main {
             }
             newrotor.close();
             switch (type) {
-                case "M":
-                    return new MovingRotor(name, new Permutation(cycles,
-                            _alphabet), notches);
-                case "N":
-                    return new FixedRotor(name, new Permutation(cycles,
-                            _alphabet));
-                case "R":
-                    return new Reflector(name, new Permutation(cycles,
-                            _alphabet));
-                default:
-                    throw error("Something wrong here,"
-                            + " got no type/wrong char from _config");
+            case "M":
+                return new MovingRotor(name, new Permutation(cycles,
+                        _alphabet), notches);
+            case "N":
+                return new FixedRotor(name, new Permutation(cycles,
+                        _alphabet));
+            case "R":
+                return new Reflector(name, new Permutation(cycles,
+                        _alphabet));
+            default:
+                throw error("Something wrong here,"
+                        + " got no type/wrong char from _config");
             }
         } catch (NoSuchElementException excp) {
             throw error("bad rotor description");
