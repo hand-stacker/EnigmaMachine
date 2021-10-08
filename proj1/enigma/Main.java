@@ -115,6 +115,7 @@ public final class Main {
     private Rotor readRotor() {
         try {
             String desc = _config.nextLine();
+            System.out.println(desc);
             Scanner newrotor = new Scanner(desc);
             System.out.println(desc);
             String name = newrotor.next();
