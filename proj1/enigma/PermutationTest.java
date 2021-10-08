@@ -68,5 +68,9 @@ public class PermutationTest {
                 "wrong derangement")), perm.derangement());
 
     }
+    @Test
+    public void checkTest1(){
+        perm = new Permutation("     (AEPLIYWCOXMRFZBSTGJQNH) (DV) (KU)\n", UPPER);
+    }
 
 }

@@ -163,7 +163,7 @@ public final class Main {
      *  have fewer letters).
      *  lol already did this in Machine sry*/
     private void printMessageLine(String msg) {
-        System.out.println(msg);
+        _output.print(msg);
     }
 
 

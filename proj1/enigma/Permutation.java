@@ -58,10 +58,11 @@ class Permutation {
     protected void updateCycles(String cycles) {
         _charMap = new HashMap<>();
         _invMap = new HashMap<>();
-        _cycles = cycles;
+        _cycles = cycles.replaceAll("\n", "");
+        _cycles = _cycles.replaceAll(" ", "");
 
-        if (!cycles.equals("")) {
-            Scanner sc = new Scanner(cycles).useDelimiter("\\(");
+        if (!_cycles.equals("")) {
+            Scanner sc = new Scanner(_cycles).useDelimiter("\\(");
             while (sc.hasNext()) {
                 String cycle = sc.next();
                 cycle = cycle.replaceAll(" ", "");

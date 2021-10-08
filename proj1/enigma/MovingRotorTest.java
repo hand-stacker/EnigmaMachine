@@ -92,7 +92,7 @@ public class MovingRotorTest {
         assertFalse(rotor.atNotch());
         rotor.advance();
         assertTrue("setting not updated", rotor.setting() == 2);
-        assertTrue(rotor.atNotch());
+        assertFalse(rotor.atNotch());
         rotor.advance();
         assertTrue("setting not updated", rotor.setting() == 3);
         assertFalse(rotor.atNotch());
