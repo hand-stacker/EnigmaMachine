@@ -69,8 +69,9 @@ public class PermutationTest {
 
     }
     @Test
-    public void checkTest1(){
-        perm = new Permutation("     (AEPLIYWCOXMRFZBSTGJQNH) (DV) (KU)\n", UPPER);
+    public void checkTest1() {
+        perm = new Permutation(" "
+                + "    (AEPLIYWCOXMRFZBSTGJQNH) (DV) (KU)\n", UPPER);
     }
 
 }

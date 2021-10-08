@@ -96,8 +96,17 @@ class Rotor {
         for (int i = 0; i < chars.length; i++) {
             Character c = chars[i];
             if (!c.equals(space) && !c.equals(openP) && !c.equals(closP)) {
-                for (int j = 0; j < count; j++) {
-                    c = perm.invert(c);
+                if (count >= 1) {
+                    for (int j = 0; j < count; j++) {
+                        c = perm.invert(c);
+                    }
+                } else if (count == 0) {
+                    c = c;
+                } else {
+                    for (int j = 0; j > count; j--) {
+                        c = perm.permute(c);
+                    }
+
                 }
             }
             retChars[i] = c;

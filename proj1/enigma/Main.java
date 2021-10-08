@@ -102,7 +102,7 @@ public final class Main {
 
             _alphabet = new Alphabet(head.nextLine());
             _rotorNums = Integer.parseInt(head.next());
-            _pawlNums = Integer.parseInt(head.nextLine().substring(1,2));
+            _pawlNums = Integer.parseInt(head.nextLine().substring(1, 2));
 
 
             while (_config.hasNext()) {

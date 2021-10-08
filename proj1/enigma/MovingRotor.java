@@ -14,7 +14,7 @@ class MovingRotor extends Rotor {
      */
     MovingRotor(String name, Permutation perm, String notches) {
         super(name, perm);
-        _permutation = perm;
+        _permutation = super.permutation();
         _setting = super.setting();
         _notches = notches.toCharArray();
     }
@@ -49,7 +49,7 @@ class MovingRotor extends Rotor {
     private char[] _notches;
     /** Instance variable of _settings. */
     private int _setting;
-    /** new permutation variable*/
+    /** new permutation variable. */
     private Permutation _permutation;
 
 }
