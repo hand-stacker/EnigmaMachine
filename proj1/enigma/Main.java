@@ -160,8 +160,22 @@ public final class Main {
                 str[i] = sc.next();
                 i++;
             }
+            for (String s :str) {
+                if (allRotors.get(s)) {
+
+                }
+            }
             M.insertRotors(str);
-            M.setRotors(sc.next());
+            String settin = sc.next();
+            if (settin.length() != _rotorNums - 1) {
+                throw error("Bad Setting");
+            }
+            for (char c : settin.toCharArray()) {
+                if (Character.isDigit(c)) {
+                    throw error("Bad Setting, not all letters")
+                }
+            }
+            M.setRotors(settin);
             if (sc.hasNextLine()) {
                 M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
             } else {

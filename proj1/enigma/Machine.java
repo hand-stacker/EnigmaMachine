@@ -48,9 +48,10 @@ class Machine {
                     throw error("rotor[0] not a reflector");
                 } else {
                     _myRotors.put("Rotor0", r);
+                    rotors[0] = "";
                 }
             }
-            for (int i = 1; i < rotors.length; i++) {
+            for (int i = 1; i < rotors.length; ) {
                 if (rotors[i].equals(r.name())) {
                     if (!_myRotors.isEmpty() && _myRotors.containsValue(r)) {
                         throw error("Duplicate Rotors");
@@ -59,9 +60,15 @@ class Machine {
                         throw error("Rotor is a reflector");
                     }
                     _myRotors.put("Rotor" + i, r);
+                    rotors[i] = "";
                 }
             }
 
+
+        }
+        String check = rotors.toString();
+        if (check.length() != 0) {
+            throw error("Wrong Rotor name");
         }
         checkOrder(_myRotors);
     }
