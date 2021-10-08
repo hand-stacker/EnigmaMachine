@@ -167,7 +167,7 @@ public final class Main {
                 throw error("Wheels either too small or too large");
             }
             for (char c : wheels.toCharArray()) {
-                if (!_alphabet.contains(c)){
+                if (!_alphabet.contains(c)) {
                     throw error("Bad Character");
                 }
             }
