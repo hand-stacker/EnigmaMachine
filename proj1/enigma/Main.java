@@ -80,10 +80,11 @@ public final class Main {
         Scanner iterations = _input.useDelimiter("\\*\\s");
         Machine thing = readConfig();
         while (iterations.hasNext()) {
+            Machine thisThing = new Machine(thing.alphabet(), thing.numRotor(),
+                    thing.numPawl(), thing.allRotors());
             Scanner thisiter = new Scanner(iterations.next());
             String settings = thisiter.nextLine();
-            thing.clear();
-            setUp(thing, settings);
+            setUp(thisThing, settings);
             while (thisiter.hasNextLine()) {
                 String message = thisiter.nextLine();
                 printMessageLine(thing.convert(message));
@@ -175,7 +176,7 @@ public final class Main {
      *  have fewer letters).
      *  lol already did this in Machine sry*/
     private void printMessageLine(String msg) {
-        _output.print(msg);
+        _output.println(msg);
     }
 
 

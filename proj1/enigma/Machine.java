@@ -172,14 +172,28 @@ class Machine {
         }
 
     }
-    /** clears _myRotors. */
-    public void clear() {
-        _myRotors = new HashMap<String, Rotor>(_numRotors);
-    }
 
     /** returns _myRotors. */
     HashMap myRotors() {
         return _myRotors;
+    }
+
+    /** returns _alphabet. */
+    Alphabet alphabet() {
+        return _alphabet;
+    }
+    /** returns _numRotors. */
+    int numRotor() {
+        return _numRotors;
+    }
+    /** returns _numPawls. */
+    int numPawl() {
+        return _numPawls;
+    }
+
+    /** returns _allRotors. */
+    ArrayList allRotors() {
+        return _allRotors;
     }
 
     /** Common alphabet of my rotors. */
