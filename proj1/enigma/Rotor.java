@@ -92,6 +92,7 @@ class Rotor {
     }
 
 
+    /** makes a set for all possible settings. */
     private void setSets() {
         _Sets.put(0, _permutation.getCycles());
         Permutation newPerm =
@@ -135,6 +136,11 @@ class Rotor {
 
     /** Advance me one position, if possible. By default, does nothing. */
     void advance() {
+    }
+
+    /** returns _sets. */
+    HashMap mySets() {
+        return  _Sets;
     }
 
     @Override

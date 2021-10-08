@@ -1,5 +1,9 @@
 package enigma;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+
+import java.util.HashMap;
+
 import static enigma.EnigmaException.*;
 
 /** Class that represents a rotating rotor in the enigma machine.
@@ -26,6 +30,21 @@ class MovingRotor extends Rotor {
         set(_setting);
     }
 
+    @Override
+    /** Set setting() to POSN.  */
+    void set(int posn) {
+        HashMap sets = mySets();
+        _permutation.updateCycles((String) sets.get(posn));
+        _setting = posn;
+    }
+
+    @Override
+    /** Set setting() to character CPOSN. */
+    void set(char cposn) {
+        int posn = _permutation.alphabet().toInt(cposn);
+        set(posn);
+
+    }
 
     @Override
     boolean rotates() {
@@ -43,6 +62,12 @@ class MovingRotor extends Rotor {
             }
         }
         return false;
+    }
+
+    @Override
+    /** Return my current setting. */
+    int setting() {
+        return _setting;
     }
 
     /** New Instance variable for all notches. */
