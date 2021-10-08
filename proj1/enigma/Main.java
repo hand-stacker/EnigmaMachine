@@ -98,7 +98,7 @@ public final class Main {
         try {
             _alphabet = new Alphabet(_config.nextLine());
             _rotorNums = Integer.parseInt(_config.next());
-            _pawlNums = Integer.parseInt(_config.next());
+            _pawlNums = Integer.parseInt(_config.nextLine());
 
             while (_config.hasNextLine()) {
                 Rotor toAdd = readRotor();
@@ -115,9 +115,7 @@ public final class Main {
     private Rotor readRotor() {
         try {
             String desc = _config.nextLine();
-            System.out.println(desc);
             Scanner newrotor = new Scanner(desc);
-            System.out.println(desc);
             String name = newrotor.next();
             String other = newrotor.next();
             String type = other.substring(0, 1);
