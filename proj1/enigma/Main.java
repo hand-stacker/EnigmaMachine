@@ -96,7 +96,7 @@ public final class Main {
      *  file _config. */
     private Machine readConfig() {
         try {
-            _config = _config.useDelimiter("\\n\\s{1}(?=[A-Z])");
+            _config = _config.useDelimiter("\\n(?=\\s*[A-Z].*\\r*\\n*)");
 
             Scanner head = new Scanner(_config.next());
 
@@ -152,21 +152,25 @@ public final class Main {
     /** Set M according to the specification given on SETTINGS,
      *  which must have the format specified in the assignment. */
     private void setUp(Machine M, String settings) {
-        Scanner sc = new Scanner(settings);
-        int i = 0;
-        String[] str = new String[_rotorNums];
-        while (i != _rotorNums) {
-            str[i] = sc.next();
-            i++;
+        try {
+            Scanner sc = new Scanner(settings);
+            int i = 0;
+            String[] str = new String[_rotorNums];
+            while (i != _rotorNums) {
+                str[i] = sc.next();
+                i++;
+            }
+            M.insertRotors(str);
+            M.setRotors(sc.next());
+            if (sc.hasNextLine()) {
+                M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
+            } else {
+                M.setPlugboard(new Permutation("", _alphabet));
+            }
+            sc.close();
+        }  catch (NoSuchElementException excp) {
+            throw error("bad setting format");
         }
-        M.insertRotors(str);
-        M.setRotors(sc.next());
-        if (sc.hasNextLine()) {
-            M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
-        } else {
-            M.setPlugboard(new Permutation("", _alphabet));
-        }
-        sc.close();
 
     }
 

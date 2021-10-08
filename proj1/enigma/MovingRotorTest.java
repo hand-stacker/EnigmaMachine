@@ -79,7 +79,7 @@ public class MovingRotorTest {
         checkRotor("Rotor I set 1", UPPER_STRING, NAVALB_MAP.get("I"));
         rotor.set('Z');
         checkRotor("Rotor I set 25", UPPER_STRING, NAVALZ_MAP.get("I"));
-        assertTrue(msg("checkrotoratB","Setting is wrong %d",
+        assertTrue(msg("checkrotoratB", "Setting is wrong %d",
                 rotor.setting()), rotor.setting() == 25);
 
     }
@@ -89,15 +89,15 @@ public class MovingRotorTest {
         rotor.advance();
         checkRotor("Rotor I advanced", UPPER_STRING, NAVALB_MAP.get("I"));
         assertTrue("rotate() method wrong", rotor.rotates());
-        assertTrue(msg("checkrotorAdvance","Setting is wrong %d",
+        assertTrue(msg("checkrotorAdvance", "Setting is wrong %d",
                 rotor.setting()), rotor.setting() == 1);
         assertFalse(rotor.atNotch());
         rotor.advance();
-        assertTrue(msg("checkrotorAdvance","Setting is wrong %d",
+        assertTrue(msg("checkrotorAdvance", "Setting is wrong %d",
                 rotor.setting()), rotor.setting() == 2);
         assertFalse(rotor.atNotch());
         rotor.advance();
-        assertTrue(msg("checkrotorAdvance","Setting is wrong %d",
+        assertTrue(msg("checkrotorAdvance", "Setting is wrong %d",
                 rotor.setting()), rotor.setting() == 3);
         assertFalse(rotor.atNotch());
 
