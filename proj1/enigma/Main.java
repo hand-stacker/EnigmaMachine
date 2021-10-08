@@ -100,8 +100,9 @@ public final class Main {
             _rotorNums = Integer.parseInt(_config.next());
             _pawlNums = Integer.parseInt(_config.nextLine().substring(1,2));
 
-
-            while (_config.hasNextLine()) {
+            _config = _config.useDelimiter("\\n\\s{1}(?=[A-Z])");
+            _config.next();
+            while (_config.hasNext()) {
                 Rotor toAdd = readRotor();
                 allRotors.add(toAdd);
             }
