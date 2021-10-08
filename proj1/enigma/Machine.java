@@ -172,6 +172,10 @@ class Machine {
         }
 
     }
+    /** clears _myRotors. */
+    public void clear() {
+        _myRotors = new HashMap<String, Rotor>(_numRotors);
+    }
 
     /** returns _myRotors. */
     HashMap myRotors() {

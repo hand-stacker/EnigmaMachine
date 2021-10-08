@@ -78,10 +78,11 @@ public final class Main {
      *  results to _output. */
     private void process() {
         Scanner iterations = _input.useDelimiter("\\*\\s");
+        Machine thing = readConfig();
         while (iterations.hasNext()) {
-            Machine thing = readConfig();
             Scanner thisiter = new Scanner(iterations.next());
             String settings = thisiter.nextLine();
+            thing.clear();
             setUp(thing, settings);
             while (thisiter.hasNextLine()) {
                 String message = thisiter.nextLine();
