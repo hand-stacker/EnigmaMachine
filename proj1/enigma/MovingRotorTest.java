@@ -78,7 +78,7 @@ public class MovingRotorTest {
         rotor.set(1);
         checkRotor("Rotor I set 1", UPPER_STRING, NAVALB_MAP.get("I"));
         rotor.set('Z');
-        checkRotor("Rotor I set 1", UPPER_STRING, NAVALZ_MAP.get("I"));
+        checkRotor("Rotor I set 25", UPPER_STRING, NAVALZ_MAP.get("I"));
         assertTrue("setting is wrong", rotor.setting() == 25);
 
     }

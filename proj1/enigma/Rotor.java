@@ -1,5 +1,7 @@
 package enigma;
 
+import java.util.HashMap;
+
 import static enigma.EnigmaException.*;
 
 /** Superclass that represents a rotor in the enigma machine.
@@ -12,6 +14,9 @@ class Rotor {
         _name = name;
         _permutation = perm;
         _setting = 0;
+        _Sets = new HashMap<>(_permutation.size());
+        setSets();
+
     }
 
     /** Return my name. */
@@ -51,34 +56,15 @@ class Rotor {
 
     /** Set setting() to POSN.  */
     void set(int posn) {
-
-        String cycles = _permutation.getCycles();
-        Permutation newPerm =
-                new Permutation("(" + alphabet().str + ")", alphabet());
-        char[] charArr = cycles.toCharArray();
-        char[] newcycles = setCycles(newPerm, charArr, posn);
-        _permutation.updateCycles(String.valueOf(newcycles));
+        _permutation.updateCycles(_Sets.get(posn));
         _setting = posn;
     }
 
-    /** Set setting() to psn, useful in advance().
-     * @param posn  posn to set setting by
-     *  @param set is the current setting of Rotor */
-    void set(int posn, int set) {
-
-        String cycles = _permutation.getCycles();
-        Permutation newPerm =
-                new Permutation("(" + alphabet().str + ")", alphabet());
-        char[] charArr = cycles.toCharArray();
-        char[] newcycles = setCycles(newPerm, charArr, posn - set);
-        _permutation.updateCycles(String.valueOf(newcycles));
-        _setting = posn;
-    }
     /** Set setting() to character CPOSN. */
     void set(char cposn) {
         int posn = _permutation.alphabet().toInt(cposn);
-        set(posn - 1);
-        _setting += 1;
+        set(posn);
+
     }
     /** Helper function that updates a cycles in char[] form to a
      * new char[] where characters other than space or parenthesis
@@ -96,17 +82,8 @@ class Rotor {
         for (int i = 0; i < chars.length; i++) {
             Character c = chars[i];
             if (!c.equals(space) && !c.equals(openP) && !c.equals(closP)) {
-                if (count >= 1) {
-                    for (int j = 0; j < count; j++) {
-                        c = perm.invert(c);
-                    }
-                } else if (count == 0) {
-                    c = c;
-                } else {
-                    for (int j = 0; j > count; j--) {
-                        c = perm.permute(c);
-                    }
-
+                for (int j = 0; j < count; j++) {
+                    c = perm.invert(c);
                 }
             }
             retChars[i] = c;
@@ -114,6 +91,30 @@ class Rotor {
         return retChars;
     }
 
+
+    private void setSets() {
+        _Sets.put(0, _permutation.getCycles());
+        Permutation newPerm =
+                new Permutation("(" + alphabet().str + ")", alphabet());
+        Character space = ' ';
+        Character openP = '(';
+        Character closP = ')';
+        char[] chars = _permutation.getCycles().toCharArray();
+        char[] retChars = new char[chars.length];
+        for (int k = 0; k < _permutation.alphabet().size(); k++) {
+            for (int i = 0; i < chars.length; i++) {
+                Character c = chars[i];
+                if (!c.equals(space) && !c.equals(openP) && !c.equals(closP)) {
+                    for (int j = 0; j < k; j++) {
+                        c = newPerm.invert(c);
+                    }
+                }
+                retChars[i] = c;
+            }
+            _Sets.put(k, String.valueOf(retChars));
+        }
+
+    }
     /** Return the conversion of P (an integer in the range 0..size()-1)
      *  according to my permutation. */
     int convertForward(int p) {
@@ -149,5 +150,8 @@ class Rotor {
 
     /** The current setting of Rotor. */
     private int _setting;
+
+    /** A HashMap of all possible settings. */
+    private HashMap<Integer, String> _Sets;
 
 }

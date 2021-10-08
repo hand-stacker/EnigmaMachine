@@ -94,7 +94,7 @@ class Machine {
         }
         for (int i = 1; i < numRotors(); i++) {
             Rotor r = _myRotors.get("Rotor" + i);
-            r.set(sets[i - 1], r.setting());
+            r.set(sets[i - 1]);
         }
     }
 
