@@ -1,6 +1,5 @@
 package enigma;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.Timeout;

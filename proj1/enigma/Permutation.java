@@ -64,13 +64,14 @@ class Permutation {
             Scanner sc = new Scanner(cycles).useDelimiter("\\(");
             while (sc.hasNext()) {
                 String cycle = sc.next();
-                cycle = cycle.replaceAll(" ","");
+                cycle = cycle.replaceAll(" ", "");
                 String ret = "";
                 while (cycle.length() != 0) {
-                    if (cycle.substring(0,1).equals(")") && cycle.length() != 1) {
+                    if (cycle.substring(0, 1).equals(")")
+                            && cycle.length() != 1) {
                         throw error("Cycle format wrong");
                     }
-                    ret += cycle.substring(0,1);
+                    ret += cycle.substring(0, 1);
                     cycle = cycle.substring(1);
                 }
                 if (!ret.contains(")")) {

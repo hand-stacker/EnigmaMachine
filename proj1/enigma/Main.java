@@ -78,12 +78,12 @@ public final class Main {
      *  results to _output. */
     private void process() {
         Scanner iterations = _input.useDelimiter("\\*\\s");
-        while(iterations.hasNext()) {
+        while (iterations.hasNext()) {
             Machine thing = readConfig();
             Scanner thisiter = new Scanner(iterations.next());
             String settings = thisiter.nextLine();
             setUp(thing, settings);
-            while(thisiter.hasNextLine()) {
+            while (thisiter.hasNextLine()) {
                 String message = thisiter.nextLine();
                 printMessageLine(thing.convert(message));
             }
@@ -100,7 +100,7 @@ public final class Main {
             _rotorNums = Integer.parseInt(_config.next());
             _pawlNums = Integer.parseInt(_config.next());
 
-            while(_config.hasNextLine()) {
+            while (_config.hasNextLine()) {
                 Rotor toAdd = readRotor();
                 allRotors.add(toAdd);
             }
@@ -120,23 +120,23 @@ public final class Main {
             System.out.println(desc);
             String name = newrotor.next();
             String other = newrotor.next();
-            String type = other.substring(0,1);
+            String type = other.substring(0, 1);
             String notches = other.substring(1);
             String cycles = newrotor.nextLine();
             newrotor.close();
             switch (type) {
-                case "M":
-                    return new MovingRotor(name, new Permutation(cycles,
-                            _alphabet), notches);
-                case "N":
-                    return new FixedRotor(name, new Permutation(cycles,
-                            _alphabet));
-                case "R":
-                    return new Reflector(name, new Permutation(cycles,
-                            _alphabet));
-                default:
-                    throw error("Something wrong here," +
-                            " got no type/wrong char from _config");
+            case "M":
+                return new MovingRotor(name, new Permutation(cycles,
+                        _alphabet), notches);
+            case "N":
+                return new FixedRotor(name, new Permutation(cycles,
+                        _alphabet));
+            case "R":
+                return new Reflector(name, new Permutation(cycles,
+                        _alphabet));
+            default:
+                throw error("Something wrong here,"
+                        + " got no type/wrong char from _config");
             }
         } catch (NoSuchElementException excp) {
             throw error("bad rotor description");
@@ -171,7 +171,7 @@ public final class Main {
     /** Number of Rotors in this machine. */
     private int _rotorNums;
 
-    /** Number of Pawls in this machine */
+    /** Number of Pawls in this machine. */
     private int _pawlNums;
 
     /** Alphabet used in this machine. */
@@ -186,6 +186,6 @@ public final class Main {
     /** File for encoded/decoded messages. */
     private PrintStream _output;
 
-    /** ArrayList with all possible rotors/ */
+    /** ArrayList with all possible rotors. */
     private ArrayList<Rotor> allRotors = new ArrayList<Rotor>();
 }

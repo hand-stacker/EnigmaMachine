@@ -61,7 +61,8 @@ class Rotor {
         _setting = posn;
     }
 
-    /** Set setting() to POSN, useful in advance().
+    /** Set setting() to psn, useful in advance().
+     * @param posn  posn to set setting by
      *  @param set is the current setting of Rotor */
     void set(int posn, int set) {
 
