@@ -98,7 +98,8 @@ public final class Main {
         try {
             _alphabet = new Alphabet(_config.nextLine());
             _rotorNums = Integer.parseInt(_config.next());
-            _pawlNums = Integer.parseInt(_config.nextLine());
+            _pawlNums = Integer.parseInt(_config.nextLine().substring(1,2));
+
 
             while (_config.hasNextLine()) {
                 Rotor toAdd = readRotor();
