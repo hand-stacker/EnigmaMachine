@@ -114,7 +114,9 @@ public final class Main {
     /** Return a rotor, reading its description from _config. */
     private Rotor readRotor() {
         try {
-            Scanner newrotor = new Scanner(_config.nextLine());
+            String desc = _config.nextLine();
+            Scanner newrotor = new Scanner(desc);
+            System.out.println(desc);
             String name = newrotor.next();
             String other = newrotor.next();
             String type = other.substring(0,1);

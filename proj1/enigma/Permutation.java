@@ -1,6 +1,7 @@
 package enigma;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 import static enigma.EnigmaException.*;
 
@@ -60,17 +61,25 @@ class Permutation {
         _cycles = cycles;
 
         if (!cycles.equals("")) {
-            String[] s = cycles.split(" ");
-            for (String str : s) {
-                if (!str.substring(0, 1).equals("(")
-                        | !str.substring(str.length() - 1,
-                                str.length()).equals(")")) {
-                    throw error(msg("addCycles",
-                        "cycles not in correct format (ABC)"));
+            Scanner sc = new Scanner(cycles).useDelimiter("\\(");
+            while (sc.hasNext()) {
+                String cycle = sc.next();
+                cycle = cycle.replaceAll(" ","");
+                String ret = "";
+                while (cycle.length() != 0) {
+                    if (cycle.substring(0,1).equals(")") && cycle.length() != 1) {
+                        throw error("Cycle format wrong");
+                    }
+                    ret += cycle.substring(0,1);
+                    cycle = cycle.substring(1);
                 }
-                str = str.substring(1, str.length() - 1);
-                addCycle(str);
+                if (!ret.contains(")")) {
+                    throw error("Cycle not closed");
+                }
+                addCycle(ret.substring(0, ret.length() - 1));
+
             }
+
         }
 
         for (Object C : _alphabet.chars().values()) {
