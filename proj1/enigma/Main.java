@@ -96,12 +96,15 @@ public final class Main {
      *  file _config. */
     private Machine readConfig() {
         try {
-            _alphabet = new Alphabet(_config.nextLine());
-            _rotorNums = Integer.parseInt(_config.next());
-            _pawlNums = Integer.parseInt(_config.nextLine().substring(1,2));
-
             _config = _config.useDelimiter("\\n\\s{1}(?=[A-Z])");
-            _config.next();
+
+            Scanner head = new Scanner(_config.next());
+
+            _alphabet = new Alphabet(head.nextLine());
+            _rotorNums = Integer.parseInt(head.next());
+            _pawlNums = Integer.parseInt(head.nextLine().substring(1,2));
+
+
             while (_config.hasNext()) {
                 Rotor toAdd = readRotor();
                 allRotors.add(toAdd);
@@ -116,13 +119,16 @@ public final class Main {
     /** Return a rotor, reading its description from _config. */
     private Rotor readRotor() {
         try {
-            String desc = _config.nextLine();
+            String desc = _config.next();
             Scanner newrotor = new Scanner(desc);
             String name = newrotor.next();
             String other = newrotor.next();
             String type = other.substring(0, 1);
             String notches = other.substring(1);
             String cycles = newrotor.nextLine();
+            while (newrotor.hasNextLine()) {
+                cycles += newrotor.nextLine();
+            }
             newrotor.close();
             switch (type) {
             case "M":
