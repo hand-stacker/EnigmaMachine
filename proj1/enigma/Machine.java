@@ -137,7 +137,10 @@ class Machine {
         }
         if (me.atNotch()) {
             advancer(i - 1, true, pawlLeft - 1);
-            me.advance();
+            int j = i - 1;
+            if (!_myRotors.get("Rotor" + j).reflecting()) {
+                me.advance();
+            }
         } else if (pawlTouchMe) {
             advancer(i - 1, false, pawlLeft - 1);
             me.advance();

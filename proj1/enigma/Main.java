@@ -85,7 +85,8 @@ public final class Main {
             setUp(thing, settings);
             while (thisiter.hasNextLine()) {
                 String message = thisiter.nextLine();
-                printMessageLine(thing.convert(message));
+                String ret = thing.convert(message);
+                printMessageLine(ret);
             }
 
 
