@@ -1,3 +1,4 @@
+
 package enigma;
 
 import static enigma.EnigmaException.*;
@@ -38,3 +39,4 @@ class FixedRotor extends Rotor {
     /** Instance variable for _setting. */
     private int _setting;
 }
+

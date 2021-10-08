@@ -1,6 +1,5 @@
 package enigma;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
 
 import java.util.HashMap;
 
@@ -78,3 +77,4 @@ class MovingRotor extends Rotor {
     private Permutation _permutation;
 
 }
+

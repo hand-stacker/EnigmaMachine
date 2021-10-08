@@ -71,7 +71,7 @@ class Machine {
      * @param map is Hashmap of Machine's Rotors*/
     void checkOrder(HashMap map) {
         boolean prevCanRotate = true;
-        for (int i = numRotors() - 1; i != 0; i--) {
+        for (int i = _numRotors - 1; i != 0; i--) {
             Rotor current = (Rotor) map.get("Rotor" + i);
             if (!prevCanRotate && current.rotates()) {
                 throw error("Rotors not ordered correctly");

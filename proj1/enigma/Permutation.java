@@ -31,13 +31,13 @@ class Permutation {
         for (char a: cycle.toCharArray()) {
             if (_charMap.containsKey(a)) {
                 throw error(msg("addCycles",
-                    "character %c already in a cycle", cycle.charAt(0)));
+                        "character %c already in a cycle", cycle.charAt(0)));
             }
 
         }
         if (!_alphabet.contains(cycle.charAt(0))) {
             throw error(msg("addCycles",
-                "character %c not found in alphabet", cycle.charAt(0)));
+                    "character %c not found in alphabet", cycle.charAt(0)));
         }
 
         for (int i = 0; i < cycle.length() - 1; i++) {
@@ -45,7 +45,7 @@ class Permutation {
             char to = cycle.charAt(i + 1);
             if (!_alphabet.contains(to)) {
                 throw error(msg("addCycles",
-                    "character %c not found in alphabet", to));
+                        "character %c not found in alphabet", to));
             }
             _charMap.put(from, to);
             _invMap.put(to, from);
