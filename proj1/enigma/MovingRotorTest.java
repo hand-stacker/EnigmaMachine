@@ -128,10 +128,9 @@ public class MovingRotorTest {
                 new Permutation(NAVALA.get("Beta"), UPPER));
         checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta"));
         fixed.set(1);
-        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta"));
+        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALB_MAP.get("Beta"));
         assertTrue("Setting is not correct", fixed.setting() == 1);
         fixed.set('C');
-        checkRotor(fixed, "Fixed Rotor", UPPER_STRING, NAVALA_MAP.get("Beta"));
         assertTrue("Setting is not correct", fixed.setting() == 2);
 
     }
