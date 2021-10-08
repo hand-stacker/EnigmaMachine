@@ -161,7 +161,11 @@ public final class Main {
         }
         M.insertRotors(str);
         M.setRotors(sc.next());
-        M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
+        if (sc.hasNextLine()) {
+            M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
+        } else {
+            M.setPlugboard(new Permutation("", _alphabet));
+        }
         sc.close();
 
     }
