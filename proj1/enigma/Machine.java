@@ -2,6 +2,7 @@
 package enigma;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Collection;
 
@@ -49,6 +50,7 @@ class Machine {
                     throw error("rotor[0] not a reflector");
                 } else {
                     _myRotors.put("Rotor0", r);
+                    rotors[0] = "";
                 }
             }
             for (int i = 1; i < rotors.length; i++) {
@@ -60,9 +62,18 @@ class Machine {
                         throw error("Rotor is a reflector");
                     }
                     _myRotors.put("Rotor" + i, r);
+                    rotors[i] = "";
                 }
             }
 
+        }
+        String checkUsed = Arrays.toString(rotors);
+        checkUsed = checkUsed.replaceAll(" ", "");
+        checkUsed = checkUsed.replaceAll(",", "");
+        checkUsed = checkUsed.replaceAll("\\]", "");
+        checkUsed = checkUsed.replaceAll("\\[", "");
+        if (checkUsed.length() >= 1) {
+            throw error("a rotor not in conf");
         }
         checkOrder(_myRotors);
     }

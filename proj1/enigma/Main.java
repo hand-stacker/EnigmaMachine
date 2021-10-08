@@ -162,7 +162,16 @@ public final class Main {
                 i++;
             }
             M.insertRotors(str);
-            M.setRotors(sc.next());
+            String wheels = sc.next();
+            if (wheels.length() != _rotorNums - 1) {
+                throw error("Wheels either too small or too large");
+            }
+            for (char c : wheels.toCharArray()) {
+                if (!_alphabet.contains(c)){
+                    throw error("Bad Character");
+                }
+            }
+            M.setRotors(wheels);
             if (sc.hasNextLine()) {
                 M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
             } else {
