@@ -77,16 +77,35 @@ public final class Main {
      *  file _config and apply it to the messages in _input, sending the
      *  results to _output. */
     private void process() {
-        // FIXME
+        Scanner iterations = _input.useDelimiter("\\*\\s");
+        while(iterations.hasNext()) {
+            Machine thing = readConfig();
+            Scanner thisiter = new Scanner(iterations.next());
+            String settings = thisiter.nextLine();
+            setUp(thing, settings);
+            while(thisiter.hasNextLine()) {
+                String message = thisiter.nextLine();
+                printMessageLine(thing.convert(message));
+            }
+
+
+        }
     }
 
     /** Return an Enigma machine configured from the contents of configuration
      *  file _config. */
     private Machine readConfig() {
         try {
-            // FIXME
-            _alphabet = new Alphabet();
-            return new Machine(_alphabet, 2, 1, null);
+            _alphabet = new Alphabet(_config.nextLine());
+            _rotorNums = Integer.parseInt(_config.next());
+            _pawlNums = Integer.parseInt(_config.next());
+
+            while(_config.hasNextLine()) {
+                Rotor toAdd = readRotor();
+                allRotors.add(toAdd);
+            }
+            _config.close();
+            return new Machine(_alphabet, _rotorNums, _pawlNums, allRotors);
         } catch (NoSuchElementException excp) {
             throw error("configuration file truncated");
         }
@@ -95,7 +114,27 @@ public final class Main {
     /** Return a rotor, reading its description from _config. */
     private Rotor readRotor() {
         try {
-            return null; // FIXME
+            Scanner newrotor = new Scanner(_config.nextLine());
+            String name = newrotor.next();
+            String other = newrotor.next();
+            String type = other.substring(0,1);
+            String notches = other.substring(1);
+            String cycles = newrotor.nextLine();
+            newrotor.close();
+            switch (type) {
+                case "M":
+                    return new MovingRotor(name, new Permutation(cycles,
+                            _alphabet), notches);
+                case "N":
+                    return new FixedRotor(name, new Permutation(cycles,
+                            _alphabet));
+                case "R":
+                    return new Reflector(name, new Permutation(cycles,
+                            _alphabet));
+                default:
+                    throw error("Something wrong here," +
+                            " got no type/wrong char from _config");
+            }
         } catch (NoSuchElementException excp) {
             throw error("bad rotor description");
         }
@@ -104,14 +143,33 @@ public final class Main {
     /** Set M according to the specification given on SETTINGS,
      *  which must have the format specified in the assignment. */
     private void setUp(Machine M, String settings) {
-        // FIXME
+        Scanner sc = new Scanner(settings);
+        int i = 0;
+        String[] str = new String[_rotorNums];
+        while (i != _rotorNums) {
+            str[i] = sc.next();
+            i++;
+        }
+        M.insertRotors(str);
+        M.setRotors(sc.next());
+        M.setPlugboard(new Permutation(sc.nextLine(), _alphabet));
+        sc.close();
+
     }
 
     /** Print MSG in groups of five (except that the last group may
-     *  have fewer letters). */
+     *  have fewer letters).
+     *  lol already did this in Machine sry*/
     private void printMessageLine(String msg) {
-        // FIXME
+        System.out.println(msg);
     }
+
+
+    /** Number of Rotors in this machine. */
+    private int _rotorNums;
+
+    /** Number of Pawls in this machine */
+    private int _pawlNums;
 
     /** Alphabet used in this machine. */
     private Alphabet _alphabet;
@@ -124,4 +182,7 @@ public final class Main {
 
     /** File for encoded/decoded messages. */
     private PrintStream _output;
+
+    /** ArrayList with all possible rotors/ */
+    private ArrayList<Rotor> allRotors = new ArrayList<Rotor>();
 }
