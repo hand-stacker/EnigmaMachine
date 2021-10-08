@@ -23,7 +23,7 @@ class MovingRotor extends Rotor {
     void advance() {
         set(_setting + 1, _setting);
         _setting += 1;
-        _permutation.wrap(_setting);
+        _setting = _permutation.wrap(_setting);
     }
 
 
